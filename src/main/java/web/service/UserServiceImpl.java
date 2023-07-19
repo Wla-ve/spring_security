@@ -1,9 +1,5 @@
 package web.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import web.dao.UserDao;
@@ -13,42 +9,46 @@ import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
-    @Autowired
-    private UserDao userDao;
 
+    private final UserDao userDao;
 
-    @Transactional(readOnly = true)
-    public List<User> getAll() {
-        return userDao.getAll();
+    public UserServiceImpl(UserDao userDao) {
+        this.userDao = userDao;
     }
 
-
+    @Override
     @Transactional
     public void save(User user) {
         userDao.save(user);
     }
 
-
+    @Override
     @Transactional(readOnly = true)
-    public User getById(Long id) {
-        return userDao.getById(id);
+    public User findById(Long id) {
+        return userDao.findById(id);
     }
 
+    @Override
+    @Transactional(readOnly = true)
+    public User findByName(String name) {
+        return userDao.findByName(name);
+    }
 
+    @Override
+    @Transactional(readOnly = true)
+    public List<User> findAll() {
+        return userDao.findAll();
+    }
+
+    @Override
     @Transactional
-    public void delete(Long id) {
-        userDao.delete(id);
+    public void deleteById(Long id) {
+        userDao.deleteById(id);
     }
 
     @Override
     @Transactional
     public void update(User user) {
         userDao.update(user);
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    public User getByName(String name) {
-        return userDao.getByName(name);
     }
 }

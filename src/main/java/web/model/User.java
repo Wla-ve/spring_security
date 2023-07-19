@@ -1,5 +1,8 @@
 package web.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -8,7 +11,10 @@ import java.util.Collection;
 import java.util.Set;
 
 @Entity
-@Table(schema = "security", name = "user")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Table(schema = "security", name = "users")
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,16 +31,6 @@ public class User implements UserDetails {
     @JoinTable(name = "roles", joinColumns = @JoinColumn(name = "users_id"),
             inverseJoinColumns = @JoinColumn(name = "roles_id"))
     private Set<Role> roles;
-
-    public User() {
-    }
-
-    public User(Long id, String firstName, String password, Set<Role> roles) {
-        this.id = id;
-        this.firstName = firstName;
-        this.password = password;
-        this.roles = roles;
-    }
 
     public Long getId() {
         return id;

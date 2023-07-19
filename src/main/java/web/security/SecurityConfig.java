@@ -15,17 +15,22 @@ import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final UserDetailsService userDetailsService;
+    // сервис, с помощью которого тащим пользователя
     private final SuccessUserHandler successUserHandler;
+    // класс, в котором описана логика перенаправления пользователей по ролям
+
     public SecurityConfig(@Qualifier("userDetailsServiceImpl") UserDetailsService userDetailsService,
                           SuccessUserHandler successUserHandler) {
         this.userDetailsService = userDetailsService;
         this.successUserHandler = successUserHandler;
     }
+
     @Autowired
     public void configureGlobalSecurity(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
         // конфигурация для прохождения аутентификации
     }
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 //         http.csrf().disable(); - попробуйте выяснить сами, что это даёт
@@ -39,9 +44,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.logout()
                 .logoutSuccessUrl("/");
     }
+
+    // Необходимо для шифрования паролей
+    // В данном примере не используется, отключен
     @Bean
     public static NoOpPasswordEncoder passwordEncoder() {
         return (NoOpPasswordEncoder) NoOpPasswordEncoder.getInstance();
     }
 }
-
