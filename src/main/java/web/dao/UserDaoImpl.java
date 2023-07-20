@@ -29,7 +29,7 @@ public class UserDaoImpl implements UserDao {
     @Override
     @Transactional(readOnly = true)
     public User findByName(String name) {
-        return entityManager.createQuery("SELECT user FROM User user WHERE user.username = : name", User.class)
+        return entityManager.createQuery("SELECT user FROM User user WHERE user.firstName = : name", User.class)
                 .setParameter("name", name)
                 .getSingleResult();
     }
