@@ -36,7 +36,7 @@ public class AdminController {
     public String newUser(Model model) {
         model.addAttribute("user", new User());
         model.addAttribute("roles", roleService.findAll());
-        return "new";
+        return "redirect:/admin";
     }
 
     @PostMapping("/add-user")

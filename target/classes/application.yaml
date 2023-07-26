@@ -10,7 +10,7 @@ spring:
     name: Spring Boot CRUD
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/security?verifyServerCertificate=false&allowPublicKeyRetrieval=true&useSSL=false&requireSSL=false&useLegacyDatetimeCode=false&amp&serverTimezone=UTC
+    url: jdbc:mysql://localhost:3306/best_bd?verifyServerCertificate=false&allowPublicKeyRetrieval=true&useSSL=false&requireSSL=false&useLegacyDatetimeCode=false&amp&serverTimezone=UTC
     username: root
     password: root
   jpa:
