@@ -13,31 +13,34 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Controller
+@RequestMapping("/admin")
 public class AdminController {
+
     private final UserService userService;
     private final RoleService roleService;
 
     public AdminController(UserService userService, RoleService roleService) {
-        this.roleService = roleService;
         this.userService = userService;
+        this.roleService = roleService;
     }
 
-    @GetMapping("/getAll")
-    public String getAll(@AuthenticationPrincipal User user, Model model) {
+    @GetMapping
+    public String listUsers(@AuthenticationPrincipal User user, Model model) {
         model.addAttribute("user", user);
         model.addAttribute("allUsers", userService.findAll());
         model.addAttribute("allRoles", roleService.findAll());
         return "admin-page";
     }
 
-    @PostMapping("/{id}/delete")
-    public String removeUser(@PathVariable("id") long id) {
-        userService.deleteById(id);
-        return "redirect:/admin";
+    @GetMapping("/new")
+    public String newUser(Model model) {
+        model.addAttribute("user", new User());
+        model.addAttribute("roles", roleService.findAll());
+        return "new";
     }
 
-    @PostMapping("/new")
-    public String addNewUser(@ModelAttribute User user, @RequestParam(value = "checkBoxRoles") String[] checkBoxRoles) {
+    @PostMapping("/add-user")
+    public String addUser(@ModelAttribute User user, @RequestParam(value = "checkBoxRoles") String[] checkBoxRoles) {
         Set<Role> roleSet = new HashSet<>();
         for (String role : checkBoxRoles) {
             roleSet.add(roleService.findByName(role));
@@ -57,11 +60,11 @@ public class AdminController {
         userService.update(user);
         return "redirect:/admin";
     }
-    @GetMapping
-    public String listUsers(@AuthenticationPrincipal User user, Model model) {
-        model.addAttribute("user", user);
-        model.addAttribute("allUsers", userService.findAll());
-        model.addAttribute("allRoles", roleService.findAll());
-        return "admin-page";
+
+    @PostMapping("/{id}/delete")
+    public String removeUser(@PathVariable("id") long id) {
+        System.out.println(id);
+        userService.deleteById(id);
+        return "redirect:/admin";
     }
 }

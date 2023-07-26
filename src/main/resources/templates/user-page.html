@@ -34,27 +34,33 @@
         <div class="col-10 bg-light">
             <h2>User information-page</h2>
             </br>
-                <h6>About user</h6>
-                </br>
-                <table class="table table-light table-striped">
-                    <thead>
-                    <tr>
-                        <th scope="col">ID</th>
-                        <th scope="col">First Name</th>
-                        <th scope="col">Role</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td th:text="${user.id}">ID</td>
-                        <td th:text="${user.username}">NAME</td>
-                        <td th:text="${user.roles}">ROLE</td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
+            <h6>About user</h6>
+            </br>
+            <table class="table table-light table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">First Name</th>
+                    <th scope="col">Last Name</th>
+                    <th scope="col">Age</th>
+
+                    <th scope="col">Role</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td th:text="${user.id}">ID</td>
+                    <td th:text="${user.username}">NAME</td>
+                    <td th:text="${user.lastName}">LAST_NAME</td>
+                    <td th:text="${user.age}">LAST_NAME</td>
+
+                    <td th:text="${user.roles}">ROLE</td>
+                </tr>
+                </tbody>
+            </table>
         </div>
     </div>
+</div>
 </div>
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
